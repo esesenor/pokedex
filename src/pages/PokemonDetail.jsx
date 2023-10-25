@@ -2,11 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import HeaderPokeball from "../components/layout/HeaderPokeball";
+import { bgByType } from "../constants/pokemon";
+
 const PokemonDetail = () => {
   const [pokemon, setPokemon] = useState(null);
   const [abilities, setAbilities] = useState([]);
   const { pokemonId } = useParams();
   const types = pokemon?.types.map((type) => type.type.name).join(" / ");
+  const fisrtType = pokemon?.types[0].type.name;
   const getPorcentageStat = (statValue) => {
     const MAX_STAT_VALUE = 255;
     const porcentStat = ((statValue * 100) / MAX_STAT_VALUE).toFixed(1);
@@ -48,11 +51,13 @@ const PokemonDetail = () => {
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div className="flex flex-col gap-4">
-              <h3 className="w-full h-[20px] text-center text-#302F2F text-md break-words font-semibold">Types</h3>
-              <span className="text-sm text-zinc-500">{types}</span>
+              <h3 className="w-full h-[20px] text-center text-red-950 text-md break-words font-semibold">Types</h3>
+              
+            <span className={`text-sm text-zinc-500 ${bgByType[fisrtType]}`}>{types}</span>
             </div>
+
             <div className="grid grid-cols-1 gap-4">
-              <h3 className="w-full h-[20px] text-center text-#302F2F text-md break-words font-semibold">Abilities</h3>
+              <h3 className="w-full h-[20px] text-center text-red-950 text-md break-words font-semibold">Abilities</h3>
             <ul className="flex flex-row gap-6 justify-center text-sm ">
               {abilities.map((ability, index) => (
                 <li className="text-zinc-500" key={index}>{ability}</li>
